@@ -1,11 +1,17 @@
 // 1. Require Mongoose
-
+const mongoose = require('mongoose');
 // 2. Require your Model
-
+const Vampire = require('./models/vampire')
 // 3. Require your extra data source
-
+const vampireExtra = require('./populateVampires')
 // 4. Connect your database
-
+const DB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/vampires';
+mongoose.connect(DB_URI, {
+	useNewUrlParser: true,
+	useFindAndModify: false,
+	useCreateIndex: true,
+	useUnifiedTopology: true
+});
 /////////////////////////////////////////////////
 //Write your answers to add, query, update, remove, and Hungry for More below.
 
