@@ -12,6 +12,9 @@ mongoose.connect(DB_URI, {
 	useCreateIndex: true,
 	useUnifiedTopology: true
 });
+
+  .then(() => console.log('MongoDB connected succesfully'))
+  .catch((err) => console.log('MongoDB did not connect',err));
 /////////////////////////////////////////////////
 //Write your answers to add, query, update, remove, and Hungry for More below.
 
@@ -19,9 +22,92 @@ mongoose.connect(DB_URI, {
 /////////////////////////////////////////////////
 // INSERT USING MONGOOSE
 // ### Add the vampire data that we gave you
-
+Vampire.collection.insertMany(vampireData, (err, data) => {
+  console.log("added provided vampire data")
+  mongoose.connection.close();
+});
 // ### Add some new vampire data
+const newVampire = [
+	{
+		name: {
+		type: Patient Zero,
+		required: true, 
+		}
+		hair_color: {
+			type: Grey,
+			default: "blonde",
+		}
+		eye_color: Red,
+		dob: { type: Date, default: Date.now },
+		loves: [contaminants, sushi],
+		location: Antartica,
+		gender: m,
+		victims: {
+			type: 24,
+			min: 0, 
+		}
+	}
 
+	{
+		name: {
+		type: Moe Money,
+		required: true, 
+		}
+		hair_color: {
+			type: Black,
+			default: "blonde",
+		}
+		eye_color: Yellow,
+		dob: { type: Date, default: Date.now },
+		loves: [fencing, abandoned buildings],
+		location: Stockton,
+		gender: m,
+		victims: {
+			type: 19,
+			min: 0, 
+		}
+	}
+
+	{
+		name: {
+		type: Kehl Bill,
+		required: true, 
+		}
+		hair_color: {
+			type: Golden,
+			default: "blonde",
+		}
+		eye_color: Black,
+		dob: { type: Date, default: Date.now },
+		loves: [sword play, gardening],
+		location: Underworld,
+		gender: f,
+		victims: {
+			type: 2,
+			min: 0, 
+		}
+	}
+
+	{
+		name: {
+		type: Sola Vamp,
+		required: true, 
+		}
+		hair_color: {
+			type: Blood Red,
+			default: "blonde",
+		}
+		eye_color: White,
+		dob: { type: Date, default: Date.now },
+		loves: [nothing],
+		location: Transylvania,
+		gender: f,
+		victims: {
+			type: 666,
+			min: 0, 
+		}
+	}
+]
 /////////////////////////////////////////////////
 // ## QUERYING
 /////////////////////////////////////////////////
