@@ -1,4 +1,4 @@
-[
+module.exports = [
   {
     name: 'Count Chocula',
     hair_color: 'brown',
@@ -136,3 +136,9 @@
     title: 'Osiris of Sewer Rats'
   }
 ]
+
+// module.exports = vampireData;
+
+
+
+

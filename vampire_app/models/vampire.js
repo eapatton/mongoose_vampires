@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
 
-const VampireSchema = new Schema ({
+const VampireSchema = new mongoose.Schema ({
 	name: {
 		type: String,
 		required: true, 
@@ -11,7 +10,7 @@ const VampireSchema = new Schema ({
 		default: "blonde",
 	},
 	eye_color: String,
-	dob: { type: Date, default: Date.now },
+	dob: Date,
 	loves: [String],
 	location: String,
 	gender: String,
@@ -19,6 +18,7 @@ const VampireSchema = new Schema ({
 		type: Number,
 		min: 0, 
 	},
+	title: String,
 });
 
 const Vampire = mongoose.model('Vampire', VampireSchema); 
