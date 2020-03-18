@@ -34,7 +34,7 @@ const newVampires = [
 		name: 'Patient Zero',
 		hair_color: 'Grey',
 		eye_color: 'Red',
-		dob: Date,
+		dob: new Date (1922, 2, 10),
 		loves: ['contaminants', 'sushi', 'roundabouts'],
 		location: 'Antartica',
 		gender: 'm',
@@ -46,7 +46,7 @@ const newVampires = [
 		name: 'Moe Money',
 		hair_color: 'Black',
 		eye_color: 'Yellow',
-		dob: Date,
+		dob: new Date (1492, 1, 1),
 		loves: ['fencing', 'abandoned buildings', 'doorknobs'],
 		location: 'Stockton',
 		gender: 'm',
@@ -57,7 +57,7 @@ const newVampires = [
 		name: 'Kehl Bill',
 		hair_color: 'Golden',
 		eye_color: 'Black',
-		dob: Date,
+		dob: new Date (1556, 6, 6),
 		loves: ['sword play', 'gardening', 'yellow'],
 		location: 'Underworld',
 		gender: 'f',
@@ -68,7 +68,7 @@ const newVampires = [
 		name: 'Sola Vamp',
 		hair_color: 'Blood Red',
 		eye_color: 'White',
-		dob: Date,
+		dob: new Date (1970, 4, 5),
 		loves: ['nothing'],
 		location: 'Transylvania',
 		gender: 'f',
@@ -87,6 +87,54 @@ Vampire.create(newVampires, (err, newVampire) => {
 // ## QUERYING
 /////////////////////////////////////////////////
 // ### Select by comparison
+// Find all the vampires that that are females
+Vampire.find({gender: 'f'}, (err, femaleVampires) => {
+	if (err) {
+		console.log("Error");
+		mongoose.connection.close();
+	}
+	console.log(`Found all the Female Vampires: ${femaleVampires}`);
+	mongoose.connection.close();
+});
+// have greater than 500 victims
+Vampire.find({victims: {$gt: 500}}, (err, manyVictimsVampires) => {
+	if (err) {
+		console.log(`Error: ${err}`);
+		mongoose.connection.close();
+	}
+	console.log(`Found vampires with 500 plus victims: ${manyVictimsVampires}`);
+	mongoose.connection.close();
+});
+
+// have fewer than or equal to 150 victims
+Vampire.find({victims: {$lte: 150}}, (err, lessVictimsVampires) => {
+	if (err) {
+		console.log(`Error: ${err}`);
+		mongoose.connection.close();
+	}
+	console.log(`Found vampires with less than 150 victims: ${lessVictimsVampires}`);
+	mongoose.connection.close();
+});
+
+// have a victim count is not equal to 210234
+Vampire.find({victims: {$ne: 210234}}, (err, mostVampires) => {
+	if (err) {
+		console.log(`Error: ${err}`);
+		mongoose.connection.close();
+	}
+	console.log(`Found the vampires without a victim count of 210234: ${mostVampires}`);
+	mongoose.connection.close();
+});
+
+// have greater than 150 AND fewer than 500 victims
+Vampire.fin({victims: {$gte: 150, $lte: 500}}, (err, betweenVampires) => {
+	if (err) {
+		console.log(`Error: ${err}`);
+		mongoose.connection.close();
+	}
+	console.log(`Found the vampires with victims between 150 and 500 victims: ${betweenVampires}`);
+	mongoose.connection.close();
+});
 
 /////////////////////////////////////////////////
 // ### Select by exists or does not exist
