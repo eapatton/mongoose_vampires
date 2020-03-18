@@ -22,92 +22,67 @@ mongoose.connect(DB_URI, {
 /////////////////////////////////////////////////
 // INSERT USING MONGOOSE
 // ### Add the vampire data that we gave you
-Vampire.collection.insertMany(vampireData, (err, data) => {
-  console.log("added provided vampire data")
-  mongoose.connection.close();
+Vampire.create(vampireData, (err, vampireData) => {
+	if (err){
+		console.log("Error creating Vampire data: ", err);
+	}
+  console.log("added provided vampire data");
 });
 // ### Add some new vampire data
-const newVampire = [
+const newVampires = [
 	{
-		name: {
-		type: Patient Zero,
-		required: true, 
-		}
-		hair_color: {
-			type: Grey,
-			default: "blonde",
-		}
-		eye_color: Red,
-		dob: { type: Date, default: Date.now },
-		loves: [contaminants, sushi],
-		location: Antartica,
-		gender: m,
-		victims: {
-			type: 24,
-			min: 0, 
-		}
+		name: 'Patient Zero',
+		hair_color: 'Grey',
+		eye_color: 'Red',
+		dob: Date,
+		loves: ['contaminants', 'sushi', 'roundabouts'],
+		location: 'Antartica',
+		gender: 'm',
+		victims: 24,
+			
 	}
 
 	{
-		name: {
-		type: Moe Money,
-		required: true, 
-		}
-		hair_color: {
-			type: Black,
-			default: "blonde",
-		}
-		eye_color: Yellow,
-		dob: { type: Date, default: Date.now },
-		loves: [fencing, abandoned buildings],
-		location: Stockton,
-		gender: m,
-		victims: {
-			type: 19,
-			min: 0, 
-		}
+		name: 'Moe Money',
+		hair_color: 'Black',
+		eye_color: 'Yellow',
+		dob: Date,
+		loves: ['fencing', 'abandoned buildings', 'doorknobs'],
+		location: 'Stockton',
+		gender: 'm',
+		victims: 19,
 	}
 
 	{
-		name: {
-		type: Kehl Bill,
-		required: true, 
-		}
-		hair_color: {
-			type: Golden,
-			default: "blonde",
-		}
-		eye_color: Black,
-		dob: { type: Date, default: Date.now },
-		loves: [sword play, gardening],
-		location: Underworld,
-		gender: f,
-		victims: {
-			type: 2,
-			min: 0, 
-		}
+		name: 'Kehl Bill',
+		hair_color: 'Golden',
+		eye_color: 'Black',
+		dob: Date,
+		loves: ['sword play', 'gardening', 'yellow'],
+		location: 'Underworld',
+		gender: 'f',
+		victims: 2,
 	}
 
 	{
-		name: {
-		type: Sola Vamp,
-		required: true, 
-		}
-		hair_color: {
-			type: Blood Red,
-			default: "blonde",
-		}
-		eye_color: White,
-		dob: { type: Date, default: Date.now },
-		loves: [nothing],
-		location: Transylvania,
-		gender: f,
-		victims: {
-			type: 666,
-			min: 0, 
-		}
+		name: 'Sola Vamp',
+		hair_color: 'Blood Red',
+		eye_color: 'White',
+		dob: Date,
+		loves: ['nothing'],
+		location: 'Transylvania',
+		gender: 'f',
+		victims: 666,
 	}
-]
+];
+
+Vampire.create(newVampires, (err, newVampire) => {
+	if (err) {
+		console.log(`Error adding new vampires: ${err}`);
+	}
+	console.log("Succesfully added new vampires");
+	process.exit();
+});
 /////////////////////////////////////////////////
 // ## QUERYING
 /////////////////////////////////////////////////
