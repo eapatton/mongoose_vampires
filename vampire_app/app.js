@@ -314,14 +314,14 @@ mongoose.connect(DB_URI, {
 /////////////////////////////////////////////////
 // ## REPLACE
 // Replace the vampire called 'Claudia' with a vampire called 'Eve'.
-Vampire.findOneAndUpdate( {name: "Claudia"}, {$set: {name: "Eve"}}, {new: true}, (err, foundVampire) => {
-	if (err) {
-	console.log(`Error: ${err}`);
-	mongoose.connection.close();
-	}
-	console.log(`Changed Claudia to Eve:`, foundVampire);
-	mongoose.connection.close();
-});
+// Vampire.findOneAndUpdate( {name: "Claudia"}, {$set: {name: "Eve"}}, {new: true}, (err, foundVampire) => {
+// 	if (err) {
+// 	console.log(`Error: ${err}`);
+// 	mongoose.connection.close();
+// 	}
+// 	console.log(`Changed Claudia to Eve:`, foundVampire);
+// 	mongoose.connection.close();
+// });
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
@@ -329,7 +329,32 @@ Vampire.findOneAndUpdate( {name: "Claudia"}, {$set: {name: "Eve"}}, {new: true},
 // Update 'Eve' to have a gender of 'm'
 // Rename 'Eve's' name field to 'moniker'
 // We now no longer want to categorize female gender as "f", but rather as fems. Update all females so that the they are of gender "fems".
+Vampire.findOneAndUpdate( {name: "Eve"}, {$set: {gender: "m"}}, {new: true}, (err, updateVampire) => {
+	if (err) {
+		console.log(`Error: ${err}`);
+		mongoose.connection.close();
+	}
+	console.log(`Changed Eve's gender to male:`, updateVampire);
+	mongoose.connection.close();
+});
 
+Vampire.findOneAndUpdate( {name: "Eve"}, {$rename: {"name": "moniker"}}, {new: true}, (err, updateVampire) => {
+	if (err) {
+		console.log(`Error: ${err}`);
+		mongoose.connection.close();
+	}
+	console.log(`Changed Eve's name to moniker:`, updateVampire);
+	mongoose.connection.close();
+});
+
+Vampire.updateMany( {gender: "f"}, {$set: {gender: "fems"}}, {new: true}, (err, femVampire) => {
+	if (err) {
+		console.log(`Error: ${err}`);
+		mongoose.connection.close();
+	}
+		console.log(`Changed all the fs to fems:`, femVampire);
+		mongoose.connection.close();
+});
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
