@@ -232,88 +232,96 @@ mongoose.connect(DB_URI, {
 /////////////////////////////////////////////////
 //### Select objects that match one of several values
 // love either frilly shirtsleeves or frilly collars
-Vampire.find({$or: [{loves: "frilly shirtsleeves"}, {loves: "frilly collars"}]}, 
-	(err, foundVampire) => {
-		if (err) {
-			console.log(`Error: ${err}`);
-			mongoose.connection.close();
-		}
-		console.log(`Found vampires who love frilly shirtsleeves or frilly collars`, foundVampire);
-		mongoose.connection.close();
-	});
-// love brooding
-Vampire.find({Loves: "brooding"}, (err, foundVampire) => {
-	if (err) {
-		console.log(`Error: ${err}`);
-		mongoose.connection.close();
-	}
-	console.log(`Found vampires who love brooding`, foundVampire);
-	mongoose.connection.close();
-});
-// love at least one of the following: appearing innocent, trickery, lurking in rotting mansions, R&B music
-Vampire.find({$or: [{loves: "appearing innocent"}, 
-	{loves: "trickery"}, 
-	{loves: "lurking in rotting mansions"}, 
-	{loves: "R&B music"}]}, (err, foundVampire) => {
-		if (err) {
-			console.log(`Error: ${err}`);
-			mongoose.connection.close();
-		}
-		console.log(`Found vampires who love appearing innocent, trickery, lurking in rotting mansions, or R&B music`, foundVampire);
-		mongoose.connection.close();
-	});
-// love fancy cloaks but not if they also love either top hats or virgin blood * Hint-You will also have to use $nin *
-Vampire.find({$and: [{loves:"fancy cloaks"}, 
-	{loves:{$nin: ["virgin blood", "top hats"]} }]}, (err, foundVampire) => {
-	if (err) {
-		console.log(`Error: ${err}`);
-		mongoose.connection.close();
-	}
-	console.log(`Found vampires who love fancy cloaks but not if they love top hats or virgin blood`, foundVampire);
-	mongoose.connection.close();
-});
-/////////////////////////////////////////////////
-//### Negative Selection
-// love ribbons but do not have brown eyes
-Vampire.find({$and: [{loves: { $in: "ribbons"}}, {eye_color: {$ne: "brown"}}]}, (err, foundVampire) => {
-	if (err) {
-		console.log(`Error: ${err}`);
-	}
-	console.log(`Found vampires who love ribbons but do not have brown eyes`, foundVampire);
-	mongoose.connection.close();
-});
+// Vampire.find({$or: [{loves: "frilly shirtsleeves"}, {loves: "frilly collars"}]}, 
+// 	(err, foundVampire) => {
+// 		if (err) {
+// 			console.log(`Error: ${err}`);
+// 			mongoose.connection.close();
+// 		}
+// 		console.log(`Found vampires who love frilly shirtsleeves or frilly collars`, foundVampire);
+// 		mongoose.connection.close();
+// 	});
+// // love brooding
+// Vampire.find({Loves: "brooding"}, (err, foundVampire) => {
+// 	if (err) {
+// 		console.log(`Error: ${err}`);
+// 		mongoose.connection.close();
+// 	}
+// 	console.log(`Found vampires who love brooding`, foundVampire);
+// 	mongoose.connection.close();
+// });
+// // love at least one of the following: appearing innocent, trickery, lurking in rotting mansions, R&B music
+// Vampire.find({$or: [{loves: "appearing innocent"}, 
+// 	{loves: "trickery"}, 
+// 	{loves: "lurking in rotting mansions"}, 
+// 	{loves: "R&B music"}]}, (err, foundVampire) => {
+// 		if (err) {
+// 			console.log(`Error: ${err}`);
+// 			mongoose.connection.close();
+// 		}
+// 		console.log(`Found vampires who love appearing innocent, trickery, lurking in rotting mansions, or R&B music`, foundVampire);
+// 		mongoose.connection.close();
+// 	});
+// // love fancy cloaks but not if they also love either top hats or virgin blood * Hint-You will also have to use $nin *
+// Vampire.find({$and: [{loves:"fancy cloaks"}, 
+// 	{loves:{$nin: ["virgin blood", "top hats"]} }]}, (err, foundVampire) => {
+// 	if (err) {
+// 		console.log(`Error: ${err}`);
+// 		mongoose.connection.close();
+// 	}
+// 	console.log(`Found vampires who love fancy cloaks but not if they love top hats or virgin blood`, foundVampire);
+// 	mongoose.connection.close();
+// });
+// /////////////////////////////////////////////////
+// //### Negative Selection
+// // love ribbons but do not have brown eyes
+// Vampire.find({$and: [{loves: { $in: "ribbons"}}, {eye_color: {$ne: "brown"}}]}, (err, foundVampire) => {
+// 	if (err) {
+// 		console.log(`Error: ${err}`);
+// 	}
+// 	console.log(`Found vampires who love ribbons but do not have brown eyes`, foundVampire);
+// 	mongoose.connection.close();
+// });
 // are not from Rome
-Vampire.find({ location: {$ne: "Rome, Italy"}}, (err, foundVampire) => {
-	if (err) {
-		console.log(`Error: ${err}`);
-	}
-	console.log(`Found vampires who are not from Rome`, foundVampire);
-	mongoose.connection.close();
-});
+// Vampire.find({ location: {$ne: "Rome, Italy"}}, (err, foundVampire) => {
+// 	if (err) {
+// 		console.log(`Error: ${err}`);
+// 	}
+// 	console.log(`Found vampires who are not from Rome`, foundVampire);
+// 	mongoose.connection.close();
+// });
 
-// do not love any of the following: [fancy cloaks, frilly shirtsleeves, appearing innocent, being tragic, brooding]
-Vampire.find({ loves: { $nin: ["fancy cloaks", "frilly shirtsleeves", "appearing innocent", "being tragic", "brooding"]}}, (err, foundVampire) => {
-	if (err) {
-		console.log(`Error: ${err}`);
-	}
-	console.log(`Found vampires who do not love fancy cloaks, frilly shirtsleeves, appearing innocent, being tragic, brooding`, foundVampire);
-	mongoose.connection.close();
-});
+// // do not love any of the following: [fancy cloaks, frilly shirtsleeves, appearing innocent, being tragic, brooding]
+// Vampire.find({ loves: { $nin: ["fancy cloaks", "frilly shirtsleeves", "appearing innocent", "being tragic", "brooding"]}}, (err, foundVampire) => {
+// 	if (err) {
+// 		console.log(`Error: ${err}`);
+// 	}
+// 	console.log(`Found vampires who do not love fancy cloaks, frilly shirtsleeves, appearing innocent, being tragic, brooding`, foundVampire);
+// 	mongoose.connection.close();
+// });
 
-// have not killed more than 200 people
-Vampire.find({ victims: {$lte: 200}}, (err, foundVampire) => {
-	if (err) {
-		console.log(`Error: ${err}`);
-		mongoose.connection.close();
-	}
-	console.log(`Found vampires that did not kill more than 200 people: `, foundVampire);
-	mongoose.connection.close();
-});
+// // have not killed more than 200 people
+// Vampire.find({ victims: {$lte: 200}}, (err, foundVampire) => {
+// 	if (err) {
+// 		console.log(`Error: ${err}`);
+// 		mongoose.connection.close();
+// 	}
+// 	console.log(`Found vampires that did not kill more than 200 people: `, foundVampire);
+// 	mongoose.connection.close();
+// });
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // ## REPLACE
 // Replace the vampire called 'Claudia' with a vampire called 'Eve'.
+Vampire.findOneAndUpdate( {name: "Claudia"}, {$set: {name: "Eve"}}, {new: true}, (err, foundVampire) => {
+	if (err) {
+	console.log(`Error: ${err}`);
+	mongoose.connection.close();
+	}
+	console.log(`Changed Claudia to Eve:`, foundVampire);
+	mongoose.connection.close();
+});
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
