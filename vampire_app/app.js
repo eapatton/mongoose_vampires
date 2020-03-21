@@ -15,7 +15,8 @@ mongoose.connect(DB_URI, {
 });
 
   .then(() => console.log('MongoDB connected succesfully'))
-  .catch((err) => console.log('MongoDB did not connect',err));
+  .catch((
+  	) => console.log('MongoDB did not connect',err));
 /////////////////////////////////////////////////
 //Write your answers to add, query, update, remove, and Hungry for More below.
 
@@ -145,65 +146,157 @@ mongoose.connect(DB_URI, {
 /////////////////////////////////////////////////
 // ### Select by exists or does not exist
 // have a title property
-Vampire.find({title: {$exists: true}}, (err, titleVampire) => {
-	if (err) {
-		console.log(`Error: ${err}`);
-		mongoose.connection.close();
-	}
-	console.log(`Found all the vampires with a title: `, titleVampire);
-	mongoose.connection.close();
-});
-//do not have a victims property
-Vampire.find({victims: {$exists: false}}, (err, noVictimsVampire) => {
-	if (err) {
-		console.log(`Error: ${err}`);
-		mongoose.connection.close();
-	}
-	console.log(`Found all vampires with no victim property: `, noVictimsVampire);
-	mongoose.connection.close();
-});
+// Vampire.find({title: {$exists: true}}, (err, titleVampire) => {
+// 	if (err) {
+// 		console.log(`Error: ${err}`);
+// 		mongoose.connection.close();
+// 	}
+// 	console.log(`Found all the vampires with a title: `, titleVampire);
+// 	mongoose.connection.close();
+// });
+// //do not have a victims property
+// Vampire.find({victims: {$exists: false}}, (err, noVictimsVampire) => {
+// 	if (err) {
+// 		console.log(`Error: ${err}`);
+// 		mongoose.connection.close();
+// 	}
+// 	console.log(`Found all vampires with no victim property: `, noVictimsVampire);
+// 	mongoose.connection.close();
+// });
 
-//have a title AND no victims
+// //have a title AND no victims
 
-Vampire.find({title: {$exists: true}, victims:{$exists: false}}, (err, titleNoVictimVampire) => {
-	if (err) {
-		console.log(`Error: ${err}`);
-		mongoose.connection.close();
-	}
-	console.log(`Found all the vampires with a title and no victims:` , titleNoVictimVampire);
-	mongoose.connection.close();
-});
+// Vampire.find({title: {$exists: true}, victims:{$exists: false}}, (err, titleNoVictimVampire) => {
+// 	if (err) {
+// 		console.log(`Error: ${err}`);
+// 		mongoose.connection.close();
+// 	}
+// 	console.log(`Found all the vampires with a title and no victims:` , titleNoVictimVampire);
+// 	mongoose.connection.close();
+// });
 
-//have victims AND the victims they have are greater than 1000
-Vampire.find({victims: {$exists: true}, victims: {$gt: 1000}}, (err, foundVampire) => {
-	if (err) {
-		console.log(`Error: ${err}`);
-		mongoose.connection.close();
-	}
-	console.log(`Found all the vampires with greater than 100 victims:` , foundVampire);
-	mongoose.connection.close();
-});
+// //have victims AND the victims they have are greater than 1000
+// Vampire.find({victims: {$exists: true}, victims: {$gt: 1000}}, (err, foundVampire) => {
+// 	if (err) {
+// 		console.log(`Error: ${err}`);
+// 		mongoose.connection.close();
+// 	}
+// 	console.log(`Found all the vampires with greater than 100 victims:` , foundVampire);
+// 	mongoose.connection.close();
+// });
 
-/////////////////////////////////////////////////
-// ### Select with OR
+// /////////////////////////////////////////////////
+// // ### Select with OR
+// // are from New York, New York, US or New Orleans, Louisiana, US
+// Vampire.find({location: {$in: ["New York, New York, US", "New Orleans, Louisiana, US"]}}, (err, nynolaVampires) => {
+// 	if (err) {
+// 		console.log(`Error: ${err}`);
+// 		mongoose.connection.close();
+// 	}
+// 	console.log(`Found vampires from NY and NOLA:`, nynolaVampires);
+// 	mongoose.connection.close();
+// });
+
+// // love brooding or being tragic
+// Vampire.find({love: {$in: ["brooding", "being tragic"]}}, (err, loveVampire) => {
+// 	if (err) {
+// 		console.log(`Error: ${err}`);
+// 		mongoose.connection.close();
+// 	}
+// 	console.log(`Found vampies that love brooding or being tragic:`, loveVampire);
+// 	mongoose.connection.close();
+// });
+
+// // have more than 1000 victims or love marshmallows
+// Vampire.find({$or: [{victims: {$gt: 1000}}, {loves: "marshmallows"}]}, (err, foundVampire) => {
+//  	if(err){
+//  		console.log(`Error: ${err}`);
+// 		mongoose.connection.close();
+// 	}
+// 	console.log(`Found vampires who have more than 1000 victims or love marshmallows`,
+// 		foundVampire);
+//  	mongoose.connection.close();
+//  });
+
+
+// // have red hair or green eyes
+//  Vampire.find({$or: [{hair_color: "red"}, {eye_color: "green"}]}, (err, foundVampire) => {
+//  	if(err){
+//  		console.log(`Error: ${err}`);
+//  		mongoose.connection.close();
+//  	}
+//  	console.log(`Found vampires who have have red hair or green eyes: `, foundVampire);
+//  	mongoose.connection.close();
+//  });
 
 /////////////////////////////////////////////////
 //### Select objects that match one of several values
-
+// love either frilly shirtsleeves or frilly collars
+Vampire.find({$or: [{loves: "frilly shirtsleeves"}, {loves: "frilly collars"}]}, 
+	(err, foundVampire) => {
+		if (err) {
+			console.log(`Error: ${err}`);
+			mongoose.connection.close();
+		}
+		console.log(`Found vampires who love frilly shirtsleeves or frilly collars`, foundVampire);
+		mongoose.connection.close();
+	});
+// love brooding
+Vampire.find({Loves: "brooding"}, (err, foundVampire) => {
+	if (err) {
+		console.log(`Error: ${err}`);
+		mongoose.connection.close();
+	}
+	console.log(`Found vampires who love brooding`, foundVampire);
+	mongoose.connection.close();
+});
+// love at least one of the following: appearing innocent, trickery, lurking in rotting mansions, R&B music
+Vampire.find({$or: [{loves: "appearing innocent"}, 
+	{loves: "trickery"}, 
+	{loves: "lurking in rotting mansions"}, 
+	{loves: "R&B music"}]}, (err, foundVampire) => {
+		if (err) {
+			console.log(`Error: ${err}`);
+			mongoose.connection.close();
+		}
+		console.log(`Found vampires who love appearing innocent, trickery, lurking in rotting mansions, or R&B music`, foundVampire);
+		mongoose.connection.close();
+	});
+// love fancy cloaks but not if they also love either top hats or virgin blood * Hint-You will also have to use $nin *
+Vampire.find({$and: [{loves:"fancy cloaks"}, 
+	{loves:{$nin: ["virgin blood", "top hats"]} }]}, (err, foundVampire) => {
+	if (err) {
+		console.log(`Error: ${err}`);
+		mongoose.connection.close();
+	}
+	console.log(`Found vampires who love fancy cloaks but not if they love top hats or virgin blood`, foundVampire);
+	mongoose.connection.close();
+});
 /////////////////////////////////////////////////
 //### Negative Selection
+// love ribbons but do not have brown eyes
+// are not from Rome
+// do not love any of the following: [fancy cloaks, frilly shirtsleeves, appearing innocent, being tragic, brooding]
+// have not killed more than 200 people
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // ## REPLACE
+// Replace the vampire called 'Claudia' with a vampire called 'Eve'.
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // ## UPDATE
+// Update 'Eve' to have a gender of 'm'
+// Rename 'Eve's' name field to 'moniker'
+// We now no longer want to categorize female gender as "f", but rather as fems. Update all females so that the they are of gender "fems".
+
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // ## REMOVE
+// Remove a single document wherein the hair_color is 'brown'
+// We found out that the vampires with the blue eyes were just fakes! Let's remove all the vampires who have blue eyes from our database.
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
