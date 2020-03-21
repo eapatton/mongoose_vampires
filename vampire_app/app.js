@@ -275,9 +275,40 @@ Vampire.find({$and: [{loves:"fancy cloaks"},
 /////////////////////////////////////////////////
 //### Negative Selection
 // love ribbons but do not have brown eyes
+Vampire.find({$and: [{loves: { $in: "ribbons"}}, {eye_color: {$ne: "brown"}}]}, (err, foundVampire) => {
+	if (err) {
+		console.log(`Error: ${err}`);
+	}
+	console.log(`Found vampires who love ribbons but do not have brown eyes`, foundVampire);
+	mongoose.connection.close();
+});
 // are not from Rome
+Vampire.find({ location: {$ne: "Rome, Italy"}}, (err, foundVampire) => {
+	if (err) {
+		console.log(`Error: ${err}`);
+	}
+	console.log(`Found vampires who are not from Rome`, foundVampire);
+	mongoose.connection.close();
+});
+
 // do not love any of the following: [fancy cloaks, frilly shirtsleeves, appearing innocent, being tragic, brooding]
+Vampire.find({ loves: { $nin: ["fancy cloaks", "frilly shirtsleeves", "appearing innocent", "being tragic", "brooding"]}}, (err, foundVampire) => {
+	if (err) {
+		console.log(`Error: ${err}`);
+	}
+	console.log(`Found vampires who do not love fancy cloaks, frilly shirtsleeves, appearing innocent, being tragic, brooding`, foundVampire);
+	mongoose.connection.close();
+});
+
 // have not killed more than 200 people
+Vampire.find({ victims: {$lte: 200}}, (err, foundVampire) => {
+	if (err) {
+		console.log(`Error: ${err}`);
+		mongoose.connection.close();
+	}
+	console.log(`Found vampires that did not kill more than 200 people: `, foundVampire);
+	mongoose.connection.close();
+});
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
