@@ -329,38 +329,55 @@ mongoose.connect(DB_URI, {
 // Update 'Eve' to have a gender of 'm'
 // Rename 'Eve's' name field to 'moniker'
 // We now no longer want to categorize female gender as "f", but rather as fems. Update all females so that the they are of gender "fems".
-Vampire.findOneAndUpdate( {name: "Eve"}, {$set: {gender: "m"}}, {new: true}, (err, updateVampire) => {
-	if (err) {
-		console.log(`Error: ${err}`);
-		mongoose.connection.close();
-	}
-	console.log(`Changed Eve's gender to male:`, updateVampire);
-	mongoose.connection.close();
-});
+// Vampire.findOneAndUpdate( {name: "Eve"}, {$set: {gender: "m"}}, {new: true}, (err, updateVampire) => {
+// 	if (err) {
+// 		console.log(`Error: ${err}`);
+// 		mongoose.connection.close();
+// 	}
+// 	console.log(`Changed Eve's gender to male:`, updateVampire);
+// 	mongoose.connection.close();
+// });
 
-Vampire.findOneAndUpdate( {name: "Eve"}, {$rename: {"name": "moniker"}}, {new: true}, (err, updateVampire) => {
-	if (err) {
-		console.log(`Error: ${err}`);
-		mongoose.connection.close();
-	}
-	console.log(`Changed Eve's name to moniker:`, updateVampire);
-	mongoose.connection.close();
-});
+// Vampire.findOneAndUpdate( {name: "Eve"}, {$rename: {"name": "moniker"}}, {new: true}, (err, updateVampire) => {
+// 	if (err) {
+// 		console.log(`Error: ${err}`);
+// 		mongoose.connection.close();
+// 	}
+// 	console.log(`Changed Eve's name to moniker:`, updateVampire);
+// 	mongoose.connection.close();
+// });
 
-Vampire.updateMany( {gender: "f"}, {$set: {gender: "fems"}}, {new: true}, (err, femVampire) => {
-	if (err) {
-		console.log(`Error: ${err}`);
-		mongoose.connection.close();
-	}
-		console.log(`Changed all the fs to fems:`, femVampire);
-		mongoose.connection.close();
-});
-
+// Vampire.updateMany( {gender: "f"}, {$set: {gender: "fems"}}, {new: true}, (err, femVampire) => {
+// 	if (err) {
+// 		console.log(`Error: ${err}`);
+// 		mongoose.connection.close();
+// 	}
+// 		console.log(`Changed all the fs to fems:`, femVampire);
+// 		mongoose.connection.close();
+// });
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // ## REMOVE
 // Remove a single document wherein the hair_color is 'brown'
-// We found out that the vampires with the blue eyes were just fakes! Let's remove all the vampires who have blue eyes from our database.
+// We found out that the vampires with the blue eyes were just fakes! 
+// Let's remove all the vampires who have blue eyes from our database.
+Vampire.deleteOne({hair_color: "brown"}, (err, brownVampire) => {
+	if (err) {
+		console.log(`Error: ${err}`);
+		mongoose.connection.close();
+	}
+	console.log(`Delete a brown haired vampire:`, brownVampire);
+	mongoose.connection.close();
+});
+
+Vampire.deleteMany({eye_color: "blue"}, (err, deleteVampire) => {
+	if (err) {
+		console.log(`Error: ${err}`);
+		mongoose.connection.close();
+	}
+	console.log('Deleted blue eyd vampires:', deleteVampire);
+	mongoose.connection.close();
+});
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
